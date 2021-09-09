@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   env: {
-    backend: "http://localhost:1337",
+    backend: "https://restaurant-demo-backend.herokuapp.com/",
   },
 };
