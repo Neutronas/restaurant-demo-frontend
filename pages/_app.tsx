@@ -5,14 +5,15 @@ import "../styles/theme.scss";
 import type { AppProps } from "next/app";
 import axios from "axios";
 import Layout from "../components/Layout";
-import { propTypes } from "react-bootstrap/esm/Image";
-import { Component } from "react";
+import ErrorPage from "../components/ErrorPage";
 
 interface globalProps {
   global: any;
 }
 function MyApp({ Component, pageProps, global }: AppProps & globalProps) {
-  return (
+  return global === null ? (
+    <ErrorPage />
+  ) : (
     <div>
       <Layout global={global}>
         <Component {...pageProps} />
@@ -22,7 +23,13 @@ function MyApp({ Component, pageProps, global }: AppProps & globalProps) {
 }
 
 MyApp.getInitialProps = async () => {
-  const global = await axios.get(`${process.env.backend}/global`);
+  try {
+    const global = await axios.get(`${process.env.backend}/global`);
+  } catch (error) {
+    return {
+      global: null,
+    };
+  }
   return {
     global: global.data,
   };
