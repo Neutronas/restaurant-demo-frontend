@@ -6,8 +6,12 @@ import type { AppProps } from "next/app";
 import axios from "axios";
 import Layout from "../components/Layout";
 import { propTypes } from "react-bootstrap/esm/Image";
+import { Component } from "react";
 
-function MyApp({ Component, pageProps, global }: AppProps) {
+interface globalProps {
+  global: any;
+}
+function MyApp({ Component, pageProps, global }: AppProps & globalProps) {
   return (
     <div>
       <Layout global={global}>
